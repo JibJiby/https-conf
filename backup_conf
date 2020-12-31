@@ -1,0 +1,18 @@
+server {
+        listen 443;
+        server_name https://conticonvertion.xyz;
+        charset utf-8;
+
+        #access_log /etc/nginx/log/access.log;
+        #error_log /etc/nginx/log/error.log;
+
+        ssl     on;                                               #ssl사용
+        ssl_certificate /etc/nginx/ssl/server.crt;        #생성된 인증서경로
+        ssl_certificate_key /etc/nginx/ssl/server.key;    #생성된 개인키
+        location / {
+                proxy_redirect  off;
+                proxy_set_header Host $http_host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Scheme $scheme;
+                proxy_pass http://conticonvertion.xyz;
+}
